@@ -21,7 +21,6 @@ const QRGenerator = () => {
       const file: File = e.target.files[0];
 
       if (file && file.size < 1048576) {
-        console.log(file);
 
         const reader = new FileReader();
         reader.onloadend = () => {
