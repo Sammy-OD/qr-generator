@@ -84,7 +84,7 @@ const QRGenerator = () => {
 
   return (
     <div className="flex flex-col md:flex-row gap-8 justify-center items-center h-full">
-      <div className="md:w-[360px]">
+      <div className="w-full px-2 md:w-[380px]">
         <h1 className="text-5xl font-semibold text-blue-800 mb-5">QR Generator</h1>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-4">
