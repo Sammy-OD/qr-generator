@@ -11,6 +11,8 @@ const QRGenerator = () => {
   const [filesize, setFilesize] = useState(0);
   const [fileError, setFileError] = useState('');
   const [image, setImage] = useState('');
+  const [logoWidth, setLogoWidth] = useState(56);
+  const [logoHeight, setLogoHeight] = useState(56);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -38,6 +40,14 @@ const QRGenerator = () => {
       setFilename(file.name);
       setFilesize(file.size);
     }
+  }
+
+  const updateLogoWidth = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLogoWidth(Number(e.target.value) * 1.2);
+  }
+
+  const updateLogoHeight = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLogoHeight(Number(e.target.value) * 1.2);
   }
 
   const generateQR = async () => {
@@ -80,6 +90,8 @@ const QRGenerator = () => {
     setFilename('');
     setFilesize(0);
     setShow(false);
+    setLogoWidth(56);
+    setLogoHeight(56);
   }
 
   return (
@@ -117,7 +129,13 @@ const QRGenerator = () => {
       {show && 
         <div className="flex flex-col gap-2">
           <div id="canvas">
-            <QRCode value={qrCodeUrl} size={280} qrStyle="squares" logoImage={image} />
+            <QRCode value={qrCodeUrl} size={280} qrStyle="squares" logoImage={image} logoWidth={logoWidth} logoHeight={logoHeight} />
+          </div>
+          <div className="flex flex-col gap-1 px-2 mb-2">
+            <label htmlFor="logowidth" className="text-sm">Logo Width</label>
+            <input type="range" name="logowidth" id="logowidth" className="accent-blue-800 cursor-pointer" value={logoWidth/1.2} onChange={updateLogoWidth} />
+            <label htmlFor="logoheight" className="text-sm">Logo Height</label>
+            <input type="range" name="logoheight" id="logoheight" className="accent-blue-800 cursor-pointer" value={logoHeight/1.2} onChange={updateLogoHeight} />
           </div>
           <button onClick={handleDownload} className="bg-blue-800 text-white p-2 text-center rounded-full">Download</button>
           <button onClick={reset} className="bg-gray-800 text-white p-2 text-center rounded-full">Clear</button>
